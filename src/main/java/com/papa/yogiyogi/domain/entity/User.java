@@ -14,7 +14,6 @@ import java.util.List;
 @Getter
 public class User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
     private String userId;
     private String userPw;
@@ -39,4 +38,5 @@ public class User {
 
     @OneToMany(mappedBy = "bidderId",fetch = FetchType.LAZY)
     private List<AuctionComment> auctionComments = new ArrayList<>();
+
 }
