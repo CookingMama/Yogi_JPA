@@ -20,6 +20,10 @@ public class FireBaseService {
         Bucket bucket = StorageClient.getInstance().bucket(firebaseBucket);
         InputStream content = new ByteArrayInputStream(file.getBytes());
         Blob blob = bucket.create(nameFile.toString(), content, file.getContentType());
-        return blob.getMediaLink();
+        String url =
+        "https://firebasestorage.googleapis.com/v0/b/yogi-350dc.appspot.com/o/" + blob.getName() + "?alt=media";
+
+
+        return url;
     }
 }
