@@ -15,3 +15,7 @@ jwt:
   SECRET_KEY: afassakjdhajskdhlaskhdlkahlksahgkalhrskjghdlkshgjlsdahgjhsjknkfnkdsnfkjndsjkfnsjfndjsnfjkdnf
   EXP_TIME: 3600000
 
+app:
+  firebase-configuration-file: ./serviceAccountKey.json
+  firebase-bucket: yogi-350dc.appspot.com
+
