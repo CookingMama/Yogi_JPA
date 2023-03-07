@@ -21,6 +21,7 @@ public class AuctionBuy {
     @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn(name = "buyer_id")
     private User buyerId;
+    @Enumerated(EnumType.STRING)
     private ECategory category;
     private Integer lowWishPrice;
     private Integer highWishPrice;

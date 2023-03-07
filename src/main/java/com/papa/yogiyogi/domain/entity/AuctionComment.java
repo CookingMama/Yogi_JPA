@@ -22,8 +22,9 @@ public class AuctionComment {
     @JoinColumn(name = "bidder_id")
     private User bidderId;
     private Integer biddingPrice;
-    private ECondition condition;
-    private String url; //picture
+    @Enumerated(EnumType.STRING)
+    private ECondition productCondition;
+    private String imgPath; //picture
     private String content;
 
 

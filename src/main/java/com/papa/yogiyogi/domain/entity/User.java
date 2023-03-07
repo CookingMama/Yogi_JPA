@@ -38,5 +38,7 @@ public class User {
 
     @OneToMany(mappedBy = "bidderId",fetch = FetchType.LAZY)
     private List<AuctionComment> auctionComments = new ArrayList<>();
-
+    public User(Long id) {
+        this.id = id;
+    }
 }

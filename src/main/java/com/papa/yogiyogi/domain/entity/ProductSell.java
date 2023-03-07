@@ -20,6 +20,7 @@ public class ProductSell {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seller_id")
     private User sellerId;
+    @Enumerated(EnumType.STRING)
     private ECategory category;
     private Integer price;
     @ManyToOne(fetch = FetchType.LAZY)
