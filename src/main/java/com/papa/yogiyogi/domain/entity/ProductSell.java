@@ -1,9 +1,11 @@
 package com.papa.yogiyogi.domain.entity;
 
 import com.papa.yogiyogi.domain.dto.ECategory;
+import com.papa.yogiyogi.domain.request.InsertProductSellRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -11,6 +13,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 public class ProductSell {
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id ;
@@ -26,4 +29,13 @@ public class ProductSell {
     @ManyToOne(fetch = FetchType.LAZY)
     private User buyerId;
     private Boolean isSold;
+
+
+    public ProductSell(InsertProductSellRequest request) {
+        this.title = request.getTitle();
+        this.url = request.getUrl();
+        this.sellerId = new User(request.getSellerId());
+        this.category = request.getCategory();
+        this.price = request.getPrice();
+    }
 }
