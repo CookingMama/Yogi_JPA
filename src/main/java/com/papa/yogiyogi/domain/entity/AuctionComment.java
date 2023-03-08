@@ -23,7 +23,7 @@ public class AuctionComment {
     private User bidderId;
     private Integer biddingPrice;
     @Enumerated(EnumType.STRING)
-    private ECondition productCondition;
+    private ECondition pCondition;
     private String imgPath; //picture
     private String content;
 
