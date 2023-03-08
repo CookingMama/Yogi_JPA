@@ -1,6 +1,7 @@
 package com.papa.yogiyogi.domain.entity;
 
 import com.papa.yogiyogi.domain.dto.ECategory;
+import com.papa.yogiyogi.domain.dto.ECondition;
 import com.papa.yogiyogi.domain.request.InsertProductSellRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,6 +26,7 @@ public class ProductSell {
     private User sellerId;
     @Enumerated(EnumType.STRING)
     private ECategory category;
+    private ECondition pCondition;
     private Integer price;
     @ManyToOne(fetch = FetchType.LAZY)
     private User buyerId;
@@ -36,6 +38,7 @@ public class ProductSell {
         this.url = request.getUrl();
         this.sellerId = new User(request.getSellerId());
         this.category = request.getCategory();
+        this.pCondition = request.getPCondition();
         this.price = request.getPrice();
     }
 }
