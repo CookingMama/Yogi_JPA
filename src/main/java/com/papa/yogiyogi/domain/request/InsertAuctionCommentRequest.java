@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,6 +19,18 @@ public class InsertAuctionCommentRequest {
     private Long bidderId;
     private ECondition pCondition;
     private Integer biddingPrice;
-    private String imgPath;
+    private MultipartFile file;
+    private String nameFile;
+
+    public InsertAuctionCommentRequest(Long id ,String title, String content, ECondition pCondition, Integer biddingPrice, MultipartFile file, String nameFile) {
+        this.auctionId = id;
+        this.title = title;
+        this.content = content;
+        this.pCondition = pCondition;
+        this.biddingPrice = biddingPrice;
+        this.file = file;
+        this.nameFile = nameFile;
+
+    }
 
 }

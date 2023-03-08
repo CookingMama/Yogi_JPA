@@ -30,7 +30,6 @@ public class AuctionBuyService {
         Long myID = securityService.parseToken(securityService.getToken()).getId();
         request.setBuyerId(myID);
         AuctionBuy auctionBuy = new AuctionBuy(request);
-        System.out.println(request);
         auctionBuyRepository.save(auctionBuy);
         return new InsertAuctionBuyResponse(auctionBuy);
 

@@ -33,9 +33,9 @@ public class ProductSell {
     private Boolean isSold;
 
 
-    public ProductSell(InsertProductSellRequest request) {
+    public ProductSell(InsertProductSellRequest request , String myImgPath) {
         this.title = request.getTitle();
-        this.url = request.getUrl();
+        this.url =myImgPath;
         this.sellerId = new User(request.getSellerId());
         this.category = request.getCategory();
         this.pCondition = request.getPCondition();

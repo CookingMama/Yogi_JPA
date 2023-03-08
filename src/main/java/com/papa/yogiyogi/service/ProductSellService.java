@@ -1,5 +1,6 @@
 package com.papa.yogiyogi.service;
 
+import com.google.firebase.auth.FirebaseAuthException;
 import com.papa.yogiyogi.domain.entity.ProductSell;
 import com.papa.yogiyogi.domain.request.InsertProductSellRequest;
 import com.papa.yogiyogi.domain.response.InsertProductSellResponse;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,11 +21,13 @@ import java.util.List;
 public class ProductSellService {
     private final ProductSellRepository productSellRepository;
     private final SecurityService securityService;
+    private final FireBaseService fireBaseService;
 
-    public InsertProductSellResponse insertProductSell(InsertProductSellRequest request) {
+    public InsertProductSellResponse insertProductSell(InsertProductSellRequest request) throws IOException, FirebaseAuthException {
         Long myID = securityService.parseToken(securityService.getToken()).getId();
         request.setSellerId(myID);
-        ProductSell productSell = new ProductSell(request);
+        String myImgPath = fireBaseService.uploadFiles(request.getFile(),request.getNameFile());
+        ProductSell productSell = new ProductSell(request, myImgPath);
         productSellRepository.save(productSell);
         return new InsertProductSellResponse(productSell);
 
