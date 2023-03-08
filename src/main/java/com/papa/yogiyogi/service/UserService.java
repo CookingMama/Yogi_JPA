@@ -38,16 +38,14 @@ public class UserService {
         return userResponse;
     }
 
-    public UserResponse signupService (SignupRequest request) throws IdCheckException, LoginException {
+    public void signupService (SignupRequest request) throws IdCheckException, LoginException {
         User user = request.toEntity();
         Optional<User> findUserId = userRepository.findByUserId(request.getUserId());
         if (findUserId.isPresent()) {
             throw new IdCheckException();
         }
         userRepository.save(user);
-        LoginRequest loginRequest =
-                new LoginRequest(user.getUserId(), user.getUserPw());
-        return loginService(loginRequest);
+
 
 
     }

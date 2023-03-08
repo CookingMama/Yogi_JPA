@@ -8,10 +8,8 @@ import com.papa.yogiyogi.domain.response.UserResponse;
 import com.papa.yogiyogi.repository.UserRepository;
 import com.papa.yogiyogi.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -27,7 +25,8 @@ public class UserController {
         return userService.loginService(request);
     }
     @PostMapping("/signup")
-    public UserResponse signUp(@RequestBody @Valid SignupRequest request) throws IdCheckException, LoginException {
-        return userService.signupService(request);
+    @ResponseStatus(HttpStatus.CREATED)
+    public void signUp(@RequestBody @Valid SignupRequest request) throws IdCheckException, LoginException {
+        userService.signupService(request);
     }
 }
