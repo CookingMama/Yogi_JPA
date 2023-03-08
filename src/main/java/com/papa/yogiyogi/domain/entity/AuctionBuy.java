@@ -3,10 +3,8 @@ package com.papa.yogiyogi.domain.entity;
 import com.papa.yogiyogi.domain.dto.ECategory;
 import com.papa.yogiyogi.domain.dto.ECondition;
 import com.papa.yogiyogi.domain.request.InsertAuctionBuyRequest;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.papa.yogiyogi.domain.request.InsertAuctionCommentRequest;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -19,12 +17,15 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 public class AuctionBuy {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
     private String content;
-    @ManyToOne (fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "buyer_id")
     private User buyerId;
     @Enumerated(EnumType.STRING)
@@ -39,6 +40,9 @@ public class AuctionBuy {
     @OneToMany(mappedBy = "auctionId", fetch = FetchType.LAZY)
     private List<AuctionComment> auctionComments = new ArrayList<>();
 
+    public AuctionBuy(Long id) {
+        this.id = id;
+    }
     public AuctionBuy(InsertAuctionBuyRequest request) {
         this.title = request.getTitle();
         this.content = request.getContent();
@@ -49,4 +53,5 @@ public class AuctionBuy {
         this.highWishPrice = request.getHighWishPrice();
         this.timeout = Instant.ofEpochMilli(request.getInputTime() + 32400000).atZone(ZoneId.systemDefault()).toLocalDateTime();
     }
+
 }
