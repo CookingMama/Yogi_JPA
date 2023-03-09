@@ -55,9 +55,7 @@ public class AuctionBuyService {
     // 3.하나의 경매의 세부정보 확인
     public ViewDetailAuctionBuyResponse findDetailAuctionBuy(Long id) {
         Optional<AuctionBuy> byId = auctionBuyRepository.findById(id);
-        ViewDetailAuctionBuyResponse viewDetailAuctionBuyResponse = new ViewDetailAuctionBuyResponse(byId.get());
-        viewDetailAuctionBuyResponse.setBuyerNickName(securityService.parseToken(securityService.getToken()).getNickName());
-        return viewDetailAuctionBuyResponse;
+        return new ViewDetailAuctionBuyResponse(byId.get());
     }
     // 4. 경매가 판매완료시 update 로 수정
 
