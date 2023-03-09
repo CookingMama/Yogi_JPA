@@ -23,22 +23,24 @@ import java.util.List;
 public class ProductSellController {
     private final ProductSellService productSellService;
     @PostMapping("/post")
-    public InsertProductSellResponse insertProductSell( String title,
-                                                        String content,
-                                                        ECategory category,
-                                                        ECondition pCondition,
-                                                        Integer price,
-                                                        @RequestParam("file") MultipartFile file,
-                                                        String nameFile) throws IOException, FirebaseAuthException {
-        InsertProductSellRequest request = new InsertProductSellRequest(
-                title,
-                content,
-                category,
-                pCondition,
-                price,
-                file,
-                nameFile
-        );
+    public InsertProductSellResponse insertProductSell(@ModelAttribute InsertProductSellRequest request
+//            String title,
+//                                                        String content,
+//                                                        ECategory category,
+//                                                        ECondition pCondition,
+//                                                        Integer price,
+//                                                        @RequestParam("file") MultipartFile file,
+//                                                        String nameFile
+    ) throws IOException, FirebaseAuthException {
+//        request = new InsertProductSellRequest(
+//                title,
+//                content,
+//                category,
+//                pCondition,
+//                price,
+//                file,
+//                nameFile
+//        );
 
         return productSellService.insertProductSell(request);
 
