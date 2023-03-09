@@ -26,11 +26,11 @@ public class ProductSell {
     private User sellerId;
     @Enumerated(EnumType.STRING)
     private ECategory category;
+    @Enumerated(EnumType.STRING)
     private ECondition pCondition;
     private Integer price;
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User buyerId;
-    private Boolean isSold;
+    private String  buyerNickName = "";
+    private Boolean isSold = false;
 
 
     public ProductSell(InsertProductSellRequest request , String myImgPath) {

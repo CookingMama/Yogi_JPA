@@ -1,9 +1,12 @@
 package com.papa.yogiyogi.service;
 
 import com.google.firebase.auth.FirebaseAuthException;
+import com.papa.yogiyogi.domain.entity.AuctionBuy;
 import com.papa.yogiyogi.domain.entity.ProductSell;
 import com.papa.yogiyogi.domain.request.InsertProductSellRequest;
 import com.papa.yogiyogi.domain.response.InsertProductSellResponse;
+import com.papa.yogiyogi.domain.response.ViewDetailAuctionBuyResponse;
+import com.papa.yogiyogi.domain.response.ViewDetailProductSellResponse;
 import com.papa.yogiyogi.domain.response.ViewProductSellListResponse;
 import com.papa.yogiyogi.repository.ProductSellRepository;
 import com.papa.yogiyogi.security.SecurityService;
@@ -15,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -44,5 +48,23 @@ public class ProductSellService {
         }
         return viewProductSellListResponses;
     }
+    public ViewDetailProductSellResponse findDetailProductSell (Long id) {
+        Optional<ProductSell> byId = productSellRepository.findById(id);
+        return new ViewDetailProductSellResponse(byId.get());
 
+    }
+
+    public String updateSold (Long id) {
+        Optional<ProductSell> productSell = productSellRepository.findById(id);
+        String buyerNickName = securityService.parseToken(securityService.getToken()).getNickName();
+        if (productSell.isEmpty()) {
+            return "존재하지 않는 게시글입니다";
+        }
+        else {
+            productSell.get().setBuyerNickName(buyerNickName);
+            productSell.get().setIsSold(true);
+        }
+        productSellRepository.save(productSell.get());
+        return "판매완료";
+    }
 }
