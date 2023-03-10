@@ -15,6 +15,7 @@ import com.papa.yogiyogi.service.AuctionBuyService;
 import com.papa.yogiyogi.service.AuctionCommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,6 +31,7 @@ public class AuctionBuyController {
     private final SecurityService securityService;
 
     @PostMapping("/post")
+    @ResponseStatus(HttpStatus.CREATED)
     public InsertAuctionBuyResponse insertAuctionBuy (@RequestBody InsertAuctionBuyRequest request) {
         TokenInfo token = securityService.parseToken(securityService.getToken());
         AuctionBuyDTO dto = new AuctionBuyDTO(token, request);
@@ -47,6 +49,7 @@ public class AuctionBuyController {
     }
 
     @PostMapping("/{id}/comment")
+    @ResponseStatus(HttpStatus.CREATED)
     public InsertAuctionCommentResponse insertAuctionComment
             ( @ModelAttribute InsertAuctionCommentRequest request, @PathVariable Long id) throws IOException, FirebaseAuthException {
         System.out.println(request);

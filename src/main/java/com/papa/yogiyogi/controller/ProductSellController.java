@@ -29,6 +29,7 @@ public class ProductSellController {
     private final ProductSellService productSellService;
     private final SecurityService securityService;
     @PostMapping("/post")
+    @ResponseStatus(HttpStatus.CREATED)
 
     public InsertProductSellResponse insertProductSell
             ( @ModelAttribute InsertProductSellRequest request)
