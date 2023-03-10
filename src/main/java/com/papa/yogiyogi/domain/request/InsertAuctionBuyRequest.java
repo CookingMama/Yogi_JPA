@@ -13,11 +13,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Setter
 public class InsertAuctionBuyRequest {
     private String title;
     private String content;
-    private Long buyerId;
     private ECategory category;
     private ECondition minCondition;
     private Integer lowWishPrice;

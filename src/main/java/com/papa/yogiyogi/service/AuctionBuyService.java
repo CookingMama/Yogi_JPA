@@ -1,5 +1,6 @@
 package com.papa.yogiyogi.service;
 
+import com.papa.yogiyogi.domain.dto.AuctionBuyDTO;
 import com.papa.yogiyogi.domain.dto.ECategory;
 import com.papa.yogiyogi.domain.entity.AuctionBuy;
 import com.papa.yogiyogi.domain.entity.ProductSell;
@@ -9,6 +10,7 @@ import com.papa.yogiyogi.domain.response.ViewAuctionBuyListResponse;
 import com.papa.yogiyogi.domain.response.ViewDetailAuctionBuyResponse;
 import com.papa.yogiyogi.repository.AuctionBuyRepository;
 import com.papa.yogiyogi.security.SecurityService;
+import com.papa.yogiyogi.security.TokenInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,10 +28,9 @@ public class AuctionBuyService {
     private final SecurityService securityService;
 
     // 1. 등록
-    public InsertAuctionBuyResponse insertAuctionBuy (InsertAuctionBuyRequest request) {
-        Long myID = securityService.parseToken(securityService.getToken()).getId();
-        request.setBuyerId(myID);
-        AuctionBuy auctionBuy = new AuctionBuy(request);
+    public InsertAuctionBuyResponse insertAuctionBuy (AuctionBuyDTO dto) {
+
+        AuctionBuy auctionBuy = new AuctionBuy(dto);
         auctionBuyRepository.save(auctionBuy);
         return new InsertAuctionBuyResponse(auctionBuy);
 
@@ -58,5 +59,9 @@ public class AuctionBuyService {
         return new ViewDetailAuctionBuyResponse(byId.get());
     }
     // 4. 경매가 판매완료시 update 로 수정
+    public  String updateBuy (Long id) {
+        Optional<AuctionBuy> auctionBuy = auctionBuyRepository.findById(id);
+        return "미완성";
+    }
 
 }

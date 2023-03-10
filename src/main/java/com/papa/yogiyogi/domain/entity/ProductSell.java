@@ -2,6 +2,7 @@ package com.papa.yogiyogi.domain.entity;
 
 import com.papa.yogiyogi.domain.dto.ECategory;
 import com.papa.yogiyogi.domain.dto.ECondition;
+import com.papa.yogiyogi.domain.dto.InsertProductSellDTO;
 import com.papa.yogiyogi.domain.request.InsertProductSellRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,12 +34,12 @@ public class ProductSell {
     private Boolean isSold = false;
 
 
-    public ProductSell(InsertProductSellRequest request , String myImgPath) {
-        this.title = request.getTitle();
-        this.url =myImgPath;
-        this.sellerId = new User(request.getSellerId());
-        this.category = request.getCategory();
-        this.pCondition = request.getPCondition();
-        this.price = request.getPrice();
+    public ProductSell(InsertProductSellDTO dto , String myImgPath) {
+        this.title = dto.getTitle();
+        this.url = myImgPath;
+        this.sellerId = new User(dto.getSellerId());
+        this.category = dto.getCategory();
+        this.pCondition = dto.getPCondition();
+        this.price = dto.getPrice();
     }
 }

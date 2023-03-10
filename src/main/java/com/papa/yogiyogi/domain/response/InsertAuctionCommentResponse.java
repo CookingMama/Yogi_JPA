@@ -18,6 +18,7 @@ public class InsertAuctionCommentResponse {
     private String title;
     private String content;
     private Long bidderId;
+    private String bidderNickName;
     private ECondition pCondition;
     private Integer biddingPrice;
     private String imgPath;
@@ -27,6 +28,7 @@ public class InsertAuctionCommentResponse {
         this.title = auctionComment.getTitle();
         this.content = auctionComment.getContent();
         this.bidderId = auctionComment.getBidderId().getId();
+        this.bidderNickName = auctionComment.getBidderId().getNickName();
         this.pCondition = auctionComment.getPCondition();
         this.biddingPrice = auctionComment.getBiddingPrice();
         this.imgPath = auctionComment.getImgPath();

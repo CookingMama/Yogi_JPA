@@ -1,5 +1,6 @@
 package com.papa.yogiyogi.domain.entity;
 
+import com.papa.yogiyogi.domain.dto.AuctionBuyDTO;
 import com.papa.yogiyogi.domain.dto.ECategory;
 import com.papa.yogiyogi.domain.dto.ECondition;
 import com.papa.yogiyogi.domain.request.InsertAuctionBuyRequest;
@@ -43,15 +44,15 @@ public class AuctionBuy {
     public AuctionBuy(Long id) {
         this.id = id;
     }
-    public AuctionBuy(InsertAuctionBuyRequest request) {
-        this.title = request.getTitle();
-        this.content = request.getContent();
-        this.buyerId = new User(request.getBuyerId());
-        this.category = request.getCategory();
-        this.minCondition = request.getMinCondition();
-        this.lowWishPrice = request.getLowWishPrice();
-        this.highWishPrice = request.getHighWishPrice();
-        this.timeout = Instant.ofEpochMilli(request.getInputTime() + 32400000).atZone(ZoneId.systemDefault()).toLocalDateTime();
+    public AuctionBuy(AuctionBuyDTO dto) {
+        this.title = dto.getTitle();
+        this.content = dto.getContent();
+        this.buyerId = new User(dto.getBuyerId());
+        this.category = dto.getCategory();
+        this.minCondition = dto.getMinCondition();
+        this.lowWishPrice = dto.getLowWishPrice();
+        this.highWishPrice = dto.getHighWishPrice();
+        this.timeout = Instant.ofEpochMilli(dto.getInputTime() + 32400000).atZone(ZoneId.systemDefault()).toLocalDateTime();
     }
 
 }

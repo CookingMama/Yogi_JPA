@@ -1,11 +1,16 @@
 package com.papa.yogiyogi.controller;
 
 import com.google.firebase.auth.FirebaseAuthException;
+import com.papa.yogiyogi.domain.dto.AuctionBuyDTO;
+import com.papa.yogiyogi.domain.dto.AuctionCommentDTO;
 import com.papa.yogiyogi.domain.dto.ECategory;
 import com.papa.yogiyogi.domain.dto.ECondition;
 import com.papa.yogiyogi.domain.request.InsertAuctionBuyRequest;
 import com.papa.yogiyogi.domain.request.InsertAuctionCommentRequest;
+import com.papa.yogiyogi.domain.request.InsertProductSellRequest;
 import com.papa.yogiyogi.domain.response.*;
+import com.papa.yogiyogi.security.SecurityService;
+import com.papa.yogiyogi.security.TokenInfo;
 import com.papa.yogiyogi.service.AuctionBuyService;
 import com.papa.yogiyogi.service.AuctionCommentService;
 import lombok.RequiredArgsConstructor;
@@ -22,10 +27,13 @@ import java.util.List;
 public class AuctionBuyController {
     private final AuctionBuyService auctionBuyService;
     private final AuctionCommentService auctionCommentService;
+    private final SecurityService securityService;
 
     @PostMapping("/post")
     public InsertAuctionBuyResponse insertAuctionBuy (@RequestBody InsertAuctionBuyRequest request) {
-        return auctionBuyService.insertAuctionBuy(request);
+        TokenInfo token = securityService.parseToken(securityService.getToken());
+        AuctionBuyDTO dto = new AuctionBuyDTO(token, request);
+        return auctionBuyService.insertAuctionBuy(dto);
     }
 
     @GetMapping
@@ -39,24 +47,15 @@ public class AuctionBuyController {
     }
 
     @PostMapping("/{id}/comment")
-    public InsertAuctionCommentResponse insertAuctionComment (
-            @PathVariable Long id,
-            String title,
-            String content,
-            ECondition pCondition,
-            Integer biddingPrice,
-            @RequestParam("file") MultipartFile file,
-            String nameFile
-            ) throws IOException, FirebaseAuthException {
-        InsertAuctionCommentRequest request = new InsertAuctionCommentRequest(
-                id,
-                title,
-                content,
-                pCondition,
-                biddingPrice,
-                file,
-                nameFile
-        );
-        return auctionCommentService.insertAuctionComment(request, id);
+    public InsertAuctionCommentResponse insertAuctionComment
+            ( @ModelAttribute InsertAuctionCommentRequest request, @PathVariable Long id) throws IOException, FirebaseAuthException {
+        System.out.println(request);
+        System.out.println(request.getNameFile() + "namefile");
+        TokenInfo tokenInfo = securityService.parseToken(securityService.getToken());
+        AuctionCommentDTO dto = new AuctionCommentDTO(tokenInfo,request,id);
+        System.out.println(tokenInfo.getNickName());
+        System.out.println(dto);
+
+        return auctionCommentService.insertAuctionComment(dto);
     }
 }

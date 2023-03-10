@@ -3,11 +3,14 @@ package com.papa.yogiyogi.controller;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.papa.yogiyogi.domain.dto.ECategory;
 import com.papa.yogiyogi.domain.dto.ECondition;
+import com.papa.yogiyogi.domain.dto.InsertProductSellDTO;
 import com.papa.yogiyogi.domain.entity.ProductSell;
 import com.papa.yogiyogi.domain.request.InsertProductSellRequest;
 import com.papa.yogiyogi.domain.response.InsertProductSellResponse;
 import com.papa.yogiyogi.domain.response.ViewDetailProductSellResponse;
 import com.papa.yogiyogi.domain.response.ViewProductSellListResponse;
+import com.papa.yogiyogi.security.SecurityService;
+import com.papa.yogiyogi.security.TokenInfo;
 import com.papa.yogiyogi.service.ProductSellService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -24,28 +27,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductSellController {
     private final ProductSellService productSellService;
+    private final SecurityService securityService;
     @PostMapping("/post")
 
-    public InsertProductSellResponse insertProductSell(@ModelAttribute InsertProductSellRequest request
-//            String title,
-//                                                        String content,
-//                                                        ECategory category,
-//                                                        ECondition pCondition,
-//                                                        Integer price,
-//                                                        @RequestParam("file") MultipartFile file,
-//                                                        String nameFile
-    ) throws IOException, FirebaseAuthException {
-//        request = new InsertProductSellRequest(
-//                title,
-//                content,
-//                category,
-//                pCondition,
-//                price,
-//                file,
-//                nameFile
-//        );
-
-        return productSellService.insertProductSell(request);
+    public InsertProductSellResponse insertProductSell
+            ( @ModelAttribute InsertProductSellRequest request)
+                throws IOException, FirebaseAuthException {
+        TokenInfo tokenInfo = securityService.parseToken(securityService.getToken());
+        InsertProductSellDTO dto = new InsertProductSellDTO(tokenInfo, request);
+        return productSellService.insertProductSell(dto);
 
     }
     @GetMapping
