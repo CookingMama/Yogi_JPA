@@ -1,6 +1,7 @@
 package com.papa.yogiyogi.service;
 
 import com.google.firebase.auth.FirebaseAuthException;
+import com.papa.yogiyogi.domain.dto.InsertProductSellDTO;
 import com.papa.yogiyogi.domain.entity.AuctionBuy;
 import com.papa.yogiyogi.domain.entity.ProductSell;
 import com.papa.yogiyogi.domain.request.InsertProductSellRequest;
@@ -27,11 +28,11 @@ public class ProductSellService {
     private final SecurityService securityService;
     private final FireBaseService fireBaseService;
 
-    public InsertProductSellResponse insertProductSell(InsertProductSellRequest request) throws IOException, FirebaseAuthException {
-        Long myID = securityService.parseToken(securityService.getToken()).getId();
-        request.setSellerId(myID);
-        String myImgPath = fireBaseService.uploadFiles(request.getFile(),request.getNameFile());
-        ProductSell productSell = new ProductSell(request, myImgPath);
+    public InsertProductSellResponse insertProductSell(InsertProductSellDTO dto) throws IOException, FirebaseAuthException {
+        System.out.println(dto.getFile());
+        System.out.println(dto.getNameFile());
+        String myImgPath = fireBaseService.uploadFiles(dto.getFile(),dto.getNameFile());
+        ProductSell productSell = new ProductSell(dto, myImgPath);
         productSellRepository.save(productSell);
         return new InsertProductSellResponse(productSell);
 

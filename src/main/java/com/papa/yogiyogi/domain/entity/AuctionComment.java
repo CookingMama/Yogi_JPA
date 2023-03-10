@@ -1,5 +1,6 @@
 package com.papa.yogiyogi.domain.entity;
 
+import com.papa.yogiyogi.domain.dto.AuctionCommentDTO;
 import com.papa.yogiyogi.domain.dto.ECondition;
 import com.papa.yogiyogi.domain.request.InsertAuctionCommentRequest;
 import lombok.AllArgsConstructor;
@@ -27,16 +28,17 @@ public class AuctionComment {
     private ECondition pCondition;
     private String imgPath; //picture
     private String content;
+    private boolean isSelected = false;
 
 
-    public AuctionComment(InsertAuctionCommentRequest request, String myImgPath) {
-        this.id = request.getId();
-        this.auctionId = new AuctionBuy(request.getAuctionId());
-        this.title = request.getTitle();
-        this.content = request.getContent();
-        this.bidderId = new User(request.getBidderId());
-        this.biddingPrice = request.getBiddingPrice();
-        this.pCondition = request.getPCondition();
+    public AuctionComment(AuctionCommentDTO dto, String myImgPath, User user) {
+        this.id = dto.getId();
+        this.auctionId = new AuctionBuy(dto.getAuctionId());
+        this.title = dto.getTitle();
+        this.content = dto.getContent();
+        this.bidderId = user;
+        this.biddingPrice = dto.getBiddingPrice();
+        this.pCondition = dto.getPCondition();
         this.imgPath = myImgPath;
 
     }
