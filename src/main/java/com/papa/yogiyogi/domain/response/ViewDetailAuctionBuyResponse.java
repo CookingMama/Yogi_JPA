@@ -1,5 +1,6 @@
 package com.papa.yogiyogi.domain.response;
 
+import com.papa.yogiyogi.domain.dto.EAuctionStatus;
 import com.papa.yogiyogi.domain.dto.ECategory;
 import com.papa.yogiyogi.domain.dto.ECondition;
 import com.papa.yogiyogi.domain.entity.AuctionBuy;
@@ -26,6 +27,7 @@ public class ViewDetailAuctionBuyResponse {
     private Integer lowWishPrice;
     private Integer highWishPrice;
     private LocalDateTime timeout;
+    private EAuctionStatus auctionStatus;
 
 
     public ViewDetailAuctionBuyResponse(AuctionBuy auctionBuy) {
@@ -38,5 +40,6 @@ public class ViewDetailAuctionBuyResponse {
         this.lowWishPrice = auctionBuy.getLowWishPrice();
         this.highWishPrice = auctionBuy.getHighWishPrice();
         this.timeout = auctionBuy.getTimeout();
+        this.auctionStatus = auctionBuy.getAuctionStatus();
     }
 }

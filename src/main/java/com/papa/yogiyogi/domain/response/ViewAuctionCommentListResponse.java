@@ -1,5 +1,6 @@
 package com.papa.yogiyogi.domain.response;
 
+import com.papa.yogiyogi.domain.dto.EAuctionStatus;
 import com.papa.yogiyogi.domain.dto.ECondition;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,6 +16,5 @@ public class ViewAuctionCommentListResponse {
     private String title;
     private ECondition pCondition;
     private Integer biddingPrice;
-    private Boolean isFinished;
-
+    private EAuctionStatus auctionStatus;
 }
