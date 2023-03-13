@@ -17,5 +17,7 @@ public class ViewProductSellListResponse {
     private String sellerNickName;
     private ECategory category;
     private Integer price;
+    private String buyerNickName;
+    private Boolean isSold;
 
 }
