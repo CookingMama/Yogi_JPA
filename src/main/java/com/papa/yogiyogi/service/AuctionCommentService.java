@@ -49,6 +49,7 @@ public class AuctionCommentService {
         for (AuctionComment one: all) {
             if(Objects.equals(one.getAuctionId().getId(), auctionId)) {
                 auctionCommentListResponses.add(new ViewAuctionCommentListResponse(
+                        one.getId(),
                         one.getAuctionId().getId(),
                         one.getBidderId().getNickName(),
                         one.getTitle(),

@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Getter
 public class ViewDetailAuctionCommentResponse {
 
+
     private Long auctionId;
     private String bidderNickName;
     private String title;
