@@ -1,5 +1,6 @@
 package com.papa.yogiyogi.domain.response;
 
+import com.papa.yogiyogi.domain.dto.EAuctionStatus;
 import com.papa.yogiyogi.domain.dto.ECategory;
 import com.papa.yogiyogi.domain.dto.ECondition;
 import lombok.AllArgsConstructor;
@@ -20,4 +21,5 @@ public class ViewAuctionBuyListResponse {
     private ECondition minCondition;
     private Integer highWishPrice;
     private LocalDateTime timeout;
+    private EAuctionStatus auctionStatus;
 }

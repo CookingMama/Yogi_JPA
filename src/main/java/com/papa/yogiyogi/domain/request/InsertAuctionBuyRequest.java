@@ -1,5 +1,6 @@
 package com.papa.yogiyogi.domain.request;
 
+import com.papa.yogiyogi.domain.dto.EAuctionStatus;
 import com.papa.yogiyogi.domain.dto.ECategory;
 import com.papa.yogiyogi.domain.dto.ECondition;
 import com.papa.yogiyogi.domain.entity.User;
@@ -21,4 +22,5 @@ public class InsertAuctionBuyRequest {
     private Integer lowWishPrice;
     private Integer highWishPrice;
     private Long inputTime;
+    private EAuctionStatus eAuctionStatus = EAuctionStatus.PROCEEDING;
 }

@@ -29,8 +29,7 @@ public class AuctionBuyDTO {
     private Integer lowWishPrice;
     private Integer highWishPrice;
     private Long inputTime;
-    private LocalDateTime timeout;
-    private Boolean isFinished = false;
+    private EAuctionStatus auctionStatus;
     private Long sellerId = null;
     private String sellerNickName;
 
@@ -43,7 +42,8 @@ public class AuctionBuyDTO {
         this.minCondition = request.getMinCondition();
         this.lowWishPrice = request.getLowWishPrice();
         this.highWishPrice = request.getHighWishPrice();
-        this.inputTime = request.getInputTime();;
+        this.inputTime = request.getInputTime();
+        this.auctionStatus = request.getEAuctionStatus();
     }
 
 }

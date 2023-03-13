@@ -55,7 +55,7 @@ public class AuctionCommentService {
                         one.getTitle(),
                         one.getPCondition(),
                         one.getBiddingPrice(),
-                        one.isFinished()
+                        one.getAuctionStatus()
                 ));
             }
         }

@@ -1,5 +1,6 @@
 package com.papa.yogiyogi.repository;
 
+import com.papa.yogiyogi.domain.dto.EAuctionStatus;
 import com.papa.yogiyogi.domain.entity.AuctionBuy;
 import com.papa.yogiyogi.domain.entity.ProductSell;
 import org.springframework.data.domain.Page;
@@ -17,11 +18,12 @@ public interface AuctionBuyRepository extends JpaRepository<AuctionBuy, Long> {
 
     @Transactional
     @Modifying
-    @Query("UPDATE AuctionBuy ab SET ab.isFinished = :isFinished, ab.sellerId = :sellerId WHERE ab.id = :id")
-    int updateAuctionBuyStatus(Boolean isFinished, Long sellerId, Long id);
+    @Query("UPDATE AuctionBuy ab SET ab.auctionStatus = :auctionStatus, ab.sellerId = :sellerId WHERE ab.id = :id")
+    int updateAuctionBuyStatus(EAuctionStatus auctionStatus, Long sellerId, Long id);
 
     @Query("select ac from AuctionBuy As ac " +
             "inner join ac.buyerId as u on u.id = :id")
     List<AuctionBuy> findAllByBuyerId(@Param("id") Long buyerId);
+
 
 }

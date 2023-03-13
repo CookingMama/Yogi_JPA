@@ -2,6 +2,7 @@ package com.papa.yogiyogi.service;
 
 import com.papa.yogiyogi.Exception.WrongCommentIdError;
 import com.papa.yogiyogi.domain.dto.AuctionBuyDTO;
+import com.papa.yogiyogi.domain.dto.EAuctionStatus;
 import com.papa.yogiyogi.domain.entity.AuctionBuy;
 import com.papa.yogiyogi.domain.entity.AuctionComment;
 import com.papa.yogiyogi.domain.entity.ProductSell;
@@ -13,6 +14,7 @@ import com.papa.yogiyogi.repository.AuctionBuyRepository;
 import com.papa.yogiyogi.repository.AuctionCommentRepository;
 import com.papa.yogiyogi.security.SecurityService;
 import com.papa.yogiyogi.security.TokenInfo;
+import jdk.jfr.Threshold;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -52,7 +54,8 @@ public class AuctionBuyService {
                     one.getCategory(),
                     one.getMinCondition(),
                     one.getHighWishPrice(),
-                    one.getTimeout()
+                    one.getTimeout(),
+                    one.getAuctionStatus()
             ));
         }
         return viewAuctionBuyListResponses;
@@ -68,8 +71,8 @@ public class AuctionBuyService {
         if (!Objects.equals(id, auctionComment.get().getAuctionId().getId())) {
             throw new WrongCommentIdError();
         }
-        auctionBuyRepository.updateAuctionBuyStatus(true, auctionComment.get().getId(), id);
-        return "변경 완료";
+        auctionBuyRepository.updateAuctionBuyStatus(EAuctionStatus.DEAL_SUCCESS, auctionComment.get().getId(), id);
+        return "판매 완료";
 
     }
     // 5. 나의 경매목록 보기
@@ -86,7 +89,8 @@ public class AuctionBuyService {
                     one.getCategory(),
                     one.getMinCondition(),
                     one.getHighWishPrice(),
-                    one.getTimeout()
+                    one.getTimeout(),
+                    one.getAuctionStatus()
             ));
         }
         return viewMyAuctionBuyListResponses;
