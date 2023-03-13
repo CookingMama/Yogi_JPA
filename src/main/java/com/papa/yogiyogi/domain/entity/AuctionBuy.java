@@ -32,10 +32,12 @@ public class AuctionBuy {
     private User buyerId;
     @Enumerated(EnumType.STRING)
     private ECategory category;
+    @Enumerated(EnumType.STRING)
     private ECondition minCondition;
     private Integer lowWishPrice;
     private Integer highWishPrice;
     private LocalDateTime timeout;
+    @Enumerated(EnumType.STRING)
     private EAuctionStatus auctionStatus;
     private Long sellerId = null;
 
