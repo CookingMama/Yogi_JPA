@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 public class ViewAuctionCommentListResponse {
+    private Long id;
     private Long auctionId;
     private String bidderNickName;
     private String title;
