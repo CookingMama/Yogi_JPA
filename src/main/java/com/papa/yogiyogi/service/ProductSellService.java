@@ -2,12 +2,8 @@ package com.papa.yogiyogi.service;
 
 import com.google.firebase.auth.FirebaseAuthException;
 import com.papa.yogiyogi.domain.dto.InsertProductSellDTO;
-import com.papa.yogiyogi.domain.entity.AuctionBuy;
 import com.papa.yogiyogi.domain.entity.ProductSell;
-import com.papa.yogiyogi.domain.entity.User;
-import com.papa.yogiyogi.domain.request.InsertProductSellRequest;
 import com.papa.yogiyogi.domain.response.InsertProductSellResponse;
-import com.papa.yogiyogi.domain.response.ViewDetailAuctionBuyResponse;
 import com.papa.yogiyogi.domain.response.ViewDetailProductSellResponse;
 import com.papa.yogiyogi.domain.response.ViewProductSellListResponse;
 import com.papa.yogiyogi.repository.ProductSellRepository;
@@ -78,7 +74,7 @@ public class ProductSellService {
         return "판매완료";
     }
 
-    public List<ViewProductSellListResponse> ViewMyProductSell() {
+    public List<ViewProductSellListResponse> viewMyProductSell() {
         List<ViewProductSellListResponse> viewMyProductSellListResponses = new ArrayList<>();
         TokenInfo token = securityService.parseToken(securityService.getToken());
         Long myId = token.getId();
