@@ -43,7 +43,14 @@ public class ProductSellService {
         Page<ProductSell> all = productSellRepository.findAllByOrderByIdDesc(pageable);
         for (ProductSell one:all) {
             viewProductSellListResponses.add(new ViewProductSellListResponse(
-                    one.getId(), one.getTitle(),one.getUrl(),one.getSellerId().getNickName() ,one.getCategory(),one.getPrice()
+                    one.getId(),
+                    one.getTitle(),
+                    one.getUrl(),
+                    one.getSellerId().getNickName() ,
+                    one.getCategory(),
+                    one.getPrice(),
+                    one.getBuyerNickName(),
+                    one.getIsSold()
             ));
 
         }

@@ -61,4 +61,8 @@ public class AuctionBuyController {
 
         return auctionCommentService.insertAuctionComment(dto);
     }
+    @GetMapping("/{id}/comment")
+    public  List <ViewAuctionCommentListResponse> findAllCommentById (@PathVariable Long id, Pageable pageable) {
+        return auctionCommentService.viewAllComment(pageable, id);
+    }
 }

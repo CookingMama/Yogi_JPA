@@ -2,7 +2,6 @@ package com.papa.yogiyogi.domain.entity;
 
 import com.papa.yogiyogi.domain.dto.AuctionCommentDTO;
 import com.papa.yogiyogi.domain.dto.ECondition;
-import com.papa.yogiyogi.domain.request.InsertAuctionCommentRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,7 +27,7 @@ public class AuctionComment {
     private ECondition pCondition;
     private String imgPath; //picture
     private String content;
-    private boolean isSelected = false;
+    private boolean isFinished = false;
 
 
     public AuctionComment(AuctionCommentDTO dto, String myImgPath, User user) {
