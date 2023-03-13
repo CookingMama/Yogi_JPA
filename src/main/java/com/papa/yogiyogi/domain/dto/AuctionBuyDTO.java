@@ -45,4 +45,5 @@ public class AuctionBuyDTO {
         this.highWishPrice = request.getHighWishPrice();
         this.inputTime = request.getInputTime();;
     }
+
 }

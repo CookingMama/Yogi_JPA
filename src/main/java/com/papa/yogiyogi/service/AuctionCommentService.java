@@ -1,6 +1,7 @@
 package com.papa.yogiyogi.service;
 
 import com.google.firebase.auth.FirebaseAuthException;
+import com.papa.yogiyogi.Exception.WrongCommentIdError;
 import com.papa.yogiyogi.domain.dto.AuctionCommentDTO;
 import com.papa.yogiyogi.domain.dto.ECondition;
 import com.papa.yogiyogi.domain.entity.AuctionBuy;
@@ -59,8 +60,11 @@ public class AuctionCommentService {
         }
         return auctionCommentListResponses;
     }
-    public ViewDetailAuctionCommentResponse viewDetailComment (Long auctionId, Long commentId) {
+    public ViewDetailAuctionCommentResponse viewDetailComment (Long commentId, Long id) throws WrongCommentIdError {
         Optional<AuctionComment> byId = auctionCommentRepository.findById(commentId);
+        if (!Objects.equals(id, byId.get().getAuctionId().getId())) {
+            throw new WrongCommentIdError();
+        }
         return new ViewDetailAuctionCommentResponse(byId.get());
     }
 

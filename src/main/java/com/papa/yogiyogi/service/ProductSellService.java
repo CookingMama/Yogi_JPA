@@ -29,8 +29,6 @@ public class ProductSellService {
     private final FireBaseService fireBaseService;
 
     public InsertProductSellResponse insertProductSell(InsertProductSellDTO dto) throws IOException, FirebaseAuthException {
-        System.out.println(dto.getFile());
-        System.out.println(dto.getNameFile());
         String myImgPath = fireBaseService.uploadFiles(dto.getFile(),dto.getNameFile());
         ProductSell productSell = new ProductSell(dto, myImgPath);
         productSellRepository.save(productSell);

@@ -1,10 +1,12 @@
 package com.papa.yogiyogi.controller;
 
 import com.google.firebase.auth.FirebaseAuthException;
+import com.papa.yogiyogi.Exception.WrongCommentIdError;
 import com.papa.yogiyogi.domain.dto.AuctionBuyDTO;
 import com.papa.yogiyogi.domain.dto.AuctionCommentDTO;
 import com.papa.yogiyogi.domain.dto.ECategory;
 import com.papa.yogiyogi.domain.dto.ECondition;
+import com.papa.yogiyogi.domain.entity.AuctionComment;
 import com.papa.yogiyogi.domain.request.InsertAuctionBuyRequest;
 import com.papa.yogiyogi.domain.request.InsertAuctionCommentRequest;
 import com.papa.yogiyogi.domain.request.InsertProductSellRequest;
@@ -64,5 +66,16 @@ public class AuctionBuyController {
     @GetMapping("/{id}/comment")
     public  List <ViewAuctionCommentListResponse> findAllCommentById (@PathVariable Long id, Pageable pageable) {
         return auctionCommentService.viewAllComment(pageable, id);
+    }
+
+    @GetMapping("/{id}/comment/{commentId}")
+    public ViewDetailAuctionCommentResponse viewDetailComment (@PathVariable Long commentId, @PathVariable Long id) throws WrongCommentIdError {
+        return auctionCommentService.viewDetailComment(commentId ,id);
+    }
+
+    @PutMapping("/{id}/comment/{commentId}")
+    public String updateAuctionStatus (@PathVariable Long id, @PathVariable Long commentId) throws WrongCommentIdError {
+
+        return auctionBuyService.updateBuy(id, commentId);
     }
 }
