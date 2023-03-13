@@ -1,24 +1,23 @@
 package com.papa.yogiyogi.service;
 
+import com.papa.yogiyogi.Exception.WrongCommentIdError;
 import com.papa.yogiyogi.domain.dto.AuctionBuyDTO;
-import com.papa.yogiyogi.domain.dto.ECategory;
 import com.papa.yogiyogi.domain.entity.AuctionBuy;
-import com.papa.yogiyogi.domain.entity.ProductSell;
-import com.papa.yogiyogi.domain.request.InsertAuctionBuyRequest;
+import com.papa.yogiyogi.domain.entity.AuctionComment;
 import com.papa.yogiyogi.domain.response.InsertAuctionBuyResponse;
 import com.papa.yogiyogi.domain.response.ViewAuctionBuyListResponse;
 import com.papa.yogiyogi.domain.response.ViewDetailAuctionBuyResponse;
 import com.papa.yogiyogi.repository.AuctionBuyRepository;
+import com.papa.yogiyogi.repository.AuctionCommentRepository;
 import com.papa.yogiyogi.security.SecurityService;
-import com.papa.yogiyogi.security.TokenInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -26,6 +25,8 @@ import java.util.Optional;
 public class AuctionBuyService {
     private final AuctionBuyRepository auctionBuyRepository;
     private final SecurityService securityService;
+
+    private final AuctionCommentRepository auctionCommentRepository;
 
     // 1. 등록
     public InsertAuctionBuyResponse insertAuctionBuy (AuctionBuyDTO dto) {
@@ -59,9 +60,14 @@ public class AuctionBuyService {
         return new ViewDetailAuctionBuyResponse(byId.get());
     }
     // 4. 경매가 판매완료시 update 로 수정
-    public  String updateBuy (Long id) {
-        Optional<AuctionBuy> auctionBuy = auctionBuyRepository.findById(id);
-        return "미완성";
+    public  String updateBuy (Long id, Long commentId) throws WrongCommentIdError{
+        Optional<AuctionComment>auctionComment = auctionCommentRepository.findById(commentId);
+        if (!Objects.equals(id, auctionComment.get().getAuctionId().getId())) {
+            throw new WrongCommentIdError();
+        }
+        auctionBuyRepository.updateAuctionBuyStatus(true, auctionComment.get().getId(), id);
+        return "변경 완료";
+
     }
 
 }
