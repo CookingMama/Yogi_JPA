@@ -5,21 +5,21 @@ import com.papa.yogiyogi.domain.dto.AuctionBuyDTO;
 import com.papa.yogiyogi.domain.dto.EAuctionStatus;
 import com.papa.yogiyogi.domain.entity.AuctionBuy;
 import com.papa.yogiyogi.domain.entity.AuctionComment;
-import com.papa.yogiyogi.domain.entity.ProductSell;
 import com.papa.yogiyogi.domain.response.InsertAuctionBuyResponse;
 import com.papa.yogiyogi.domain.response.ViewAuctionBuyListResponse;
 import com.papa.yogiyogi.domain.response.ViewDetailAuctionBuyResponse;
-import com.papa.yogiyogi.domain.response.ViewProductSellListResponse;
 import com.papa.yogiyogi.repository.AuctionBuyRepository;
 import com.papa.yogiyogi.repository.AuctionCommentRepository;
 import com.papa.yogiyogi.security.SecurityService;
 import com.papa.yogiyogi.security.TokenInfo;
-import jdk.jfr.Threshold;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -39,8 +39,6 @@ public class AuctionBuyService {
         AuctionBuy auctionBuy = new AuctionBuy(dto);
         auctionBuyRepository.save(auctionBuy);
         return new InsertAuctionBuyResponse(auctionBuy);
-
-
     }
     // 2.모든 등록된 경매 리스트 보기
     public List<ViewAuctionBuyListResponse> findAllAuctionBuy(Pageable pageable) {
@@ -73,6 +71,25 @@ public class AuctionBuyService {
         }
         auctionBuyRepository.updateAuctionBuyStatus(EAuctionStatus.DEAL_SUCCESS, auctionComment.get().getId(), id);
         return "판매 완료";
+    }
+    // 4-1. 경매가 시간이 지났는데 판매완료가 되지 않음
+    @Scheduled (fixedRate = 60000)
+    public void updateBuyByTime () {
+        List<AuctionBuy> all = auctionBuyRepository.findAllByAuctionStatus();
+        for (AuctionBuy one : all) {
+
+            Long longTimeOut = one.getTimeout().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+            Long longNow = (60000L * 60 * 9 )+ LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+            System.out.println(longTimeOut);
+            System.out.println(longNow);
+            System.out.println(one.getTimeout());
+            System.out.println(one.getAuctionStatus());
+            if (longNow>longTimeOut) {
+
+                auctionBuyRepository.updateAuctionBuyStatus(EAuctionStatus.FINISHED, null, one.getId());
+            }
+        }
+        System.out.println("schedule");
 
     }
     // 5. 나의 경매목록 보기

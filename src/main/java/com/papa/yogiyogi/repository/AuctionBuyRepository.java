@@ -2,7 +2,6 @@ package com.papa.yogiyogi.repository;
 
 import com.papa.yogiyogi.domain.dto.EAuctionStatus;
 import com.papa.yogiyogi.domain.entity.AuctionBuy;
-import com.papa.yogiyogi.domain.entity.ProductSell;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,9 +20,11 @@ public interface AuctionBuyRepository extends JpaRepository<AuctionBuy, Long> {
     @Query("UPDATE AuctionBuy ab SET ab.auctionStatus = :auctionStatus, ab.sellerId = :sellerId WHERE ab.id = :id")
     int updateAuctionBuyStatus(EAuctionStatus auctionStatus, Long sellerId, Long id);
 
-    @Query("select ac from AuctionBuy As ac " +
-            "inner join ac.buyerId as u on u.id = :id")
+    @Query("select ab from AuctionBuy As ab " +
+            "inner join ab.buyerId as u on u.id = :id")
     List<AuctionBuy> findAllByBuyerId(@Param("id") Long buyerId);
 
+    @Query("select ab from AuctionBuy As ab where ab.auctionStatus = 'proceeding'")
+    List<AuctionBuy> findAllByAuctionStatus();
 
 }
