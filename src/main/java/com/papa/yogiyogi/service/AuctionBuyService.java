@@ -4,12 +4,15 @@ import com.papa.yogiyogi.Exception.WrongCommentIdError;
 import com.papa.yogiyogi.domain.dto.AuctionBuyDTO;
 import com.papa.yogiyogi.domain.entity.AuctionBuy;
 import com.papa.yogiyogi.domain.entity.AuctionComment;
+import com.papa.yogiyogi.domain.entity.ProductSell;
 import com.papa.yogiyogi.domain.response.InsertAuctionBuyResponse;
 import com.papa.yogiyogi.domain.response.ViewAuctionBuyListResponse;
 import com.papa.yogiyogi.domain.response.ViewDetailAuctionBuyResponse;
+import com.papa.yogiyogi.domain.response.ViewProductSellListResponse;
 import com.papa.yogiyogi.repository.AuctionBuyRepository;
 import com.papa.yogiyogi.repository.AuctionCommentRepository;
 import com.papa.yogiyogi.security.SecurityService;
+import com.papa.yogiyogi.security.TokenInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -68,6 +71,25 @@ public class AuctionBuyService {
         auctionBuyRepository.updateAuctionBuyStatus(true, auctionComment.get().getId(), id);
         return "변경 완료";
 
+    }
+    // 5. 나의 경매목록 보기
+    public List<ViewAuctionBuyListResponse> viewMyAuctionBuy() {
+        List<ViewAuctionBuyListResponse> viewMyAuctionBuyListResponses = new ArrayList<>();
+        TokenInfo token = securityService.parseToken(securityService.getToken());
+        Long myId = token.getId();
+        List<AuctionBuy> all = auctionBuyRepository.findAllByBuyerId(myId);
+        for (AuctionBuy one: all) {
+            viewMyAuctionBuyListResponses.add(new ViewAuctionBuyListResponse(
+                    one.getId(),
+                    one.getTitle(),
+                    one.getBuyerId().getNickName(),
+                    one.getCategory(),
+                    one.getMinCondition(),
+                    one.getHighWishPrice(),
+                    one.getTimeout()
+            ));
+        }
+        return viewMyAuctionBuyListResponses;
     }
 
 }
