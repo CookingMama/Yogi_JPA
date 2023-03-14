@@ -15,6 +15,7 @@ import lombok.Setter;
 public class ViewDetailProductSellResponse {
     private Long id ;
     private String title;
+    private String content;
     private String url; //firebase picture
     private String sellerNickName;
     private ECategory category;
@@ -26,6 +27,7 @@ public class ViewDetailProductSellResponse {
     public ViewDetailProductSellResponse(ProductSell productSell) {
         this.id = productSell.getId();
         this.title = productSell.getTitle();
+        this.content = productSell.getContent();
         this.url = productSell.getUrl();
         this.sellerNickName = productSell.getSellerId().getNickName();
         this.category = productSell.getCategory();

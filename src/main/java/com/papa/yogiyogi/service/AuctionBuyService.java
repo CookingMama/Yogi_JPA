@@ -43,17 +43,18 @@ public class AuctionBuyService {
     // 2.모든 등록된 경매 리스트 보기
     public List<ViewAuctionBuyListResponse> findAllAuctionBuy(Pageable pageable) {
         List<ViewAuctionBuyListResponse> viewAuctionBuyListResponses = new ArrayList<>();
-        Page<AuctionBuy> all = auctionBuyRepository.findAllByOrderByIdDesc(pageable);
-        for (AuctionBuy one: all) {
+        Page<AuctionBuyDTO> all = auctionBuyRepository.findAllByOrderByIdDesc(pageable);
+        for (AuctionBuyDTO one: all) {
             viewAuctionBuyListResponses.add(new ViewAuctionBuyListResponse(
                     one.getId(),
                     one.getTitle(),
-                    one.getBuyerId().getNickName(),
+                    one.getBuyerNickName(),
                     one.getCategory(),
                     one.getMinCondition(),
                     one.getHighWishPrice(),
                     one.getTimeout(),
-                    one.getAuctionStatus()
+                    one.getAuctionStatus(),
+                    one.getCommentCount()
             ));
         }
         return viewAuctionBuyListResponses;
@@ -97,17 +98,18 @@ public class AuctionBuyService {
         List<ViewAuctionBuyListResponse> viewMyAuctionBuyListResponses = new ArrayList<>();
         TokenInfo token = securityService.parseToken(securityService.getToken());
         Long myId = token.getId();
-        List<AuctionBuy> all = auctionBuyRepository.findAllByBuyerId(myId);
-        for (AuctionBuy one: all) {
+        List<AuctionBuyDTO> all = auctionBuyRepository.findAllByBuyerId(myId);
+        for (AuctionBuyDTO one: all) {
             viewMyAuctionBuyListResponses.add(new ViewAuctionBuyListResponse(
                     one.getId(),
                     one.getTitle(),
-                    one.getBuyerId().getNickName(),
+                    one.getBuyerNickName(),
                     one.getCategory(),
                     one.getMinCondition(),
                     one.getHighWishPrice(),
                     one.getTimeout(),
-                    one.getAuctionStatus()
+                    one.getAuctionStatus(),
+                    one.getCommentCount()
             ));
         }
         return viewMyAuctionBuyListResponses;
