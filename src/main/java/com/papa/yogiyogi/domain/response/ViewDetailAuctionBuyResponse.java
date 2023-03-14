@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalDateTime;
 
 @Getter
@@ -28,9 +29,10 @@ public class ViewDetailAuctionBuyResponse {
     private Integer highWishPrice;
     private LocalDateTime timeout;
     private EAuctionStatus auctionStatus;
+    private Integer commentCount = 0;
 
 
-    public ViewDetailAuctionBuyResponse(AuctionBuy auctionBuy) {
+    public ViewDetailAuctionBuyResponse(AuctionBuy auctionBuy, Integer commentCount) {
         this.id = auctionBuy.getId();
         this.title = auctionBuy.getTitle();
         this.content = auctionBuy.getContent();
@@ -41,5 +43,6 @@ public class ViewDetailAuctionBuyResponse {
         this.highWishPrice = auctionBuy.getHighWishPrice();
         this.timeout = auctionBuy.getTimeout();
         this.auctionStatus = auctionBuy.getAuctionStatus();
+        this.commentCount = commentCount;
     }
 }
