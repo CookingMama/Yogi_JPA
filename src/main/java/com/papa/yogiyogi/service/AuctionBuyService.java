@@ -64,7 +64,8 @@ public class AuctionBuyService {
     // 3.하나의 경매의 세부정보 확인
     public ViewDetailAuctionBuyResponse findDetailAuctionBuy(Long id) {
         Optional<AuctionBuy> byId = auctionBuyRepository.findById(id);
-        return new ViewDetailAuctionBuyResponse(byId.get());
+        Integer commentCount = auctionCommentRepository.findCountByAuctionId(byId.get());
+        return new ViewDetailAuctionBuyResponse(byId.get(), commentCount);
     }
     // 4. 경매가 판매완료시 update 로 수정
     public  String updateBuy (Long id, Long commentId) throws WrongCommentIdError{
