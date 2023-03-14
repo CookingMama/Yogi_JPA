@@ -70,7 +70,7 @@ public class AuctionBuyService {
         if (!Objects.equals(id, auctionComment.get().getAuctionId().getId())) {
             throw new WrongCommentIdError();
         }
-        auctionBuyRepository.updateAuctionBuyStatus(EAuctionStatus.DEAL_SUCCESS, auctionComment.get().getId(), id);
+        auctionBuyRepository.updateAuctionBuyStatus(EAuctionStatus.DEAL_SUCCESS, auctionComment.get().getBidderId().getId(), id);
         return "판매 완료";
     }
     // 4-1. 경매가 시간이 지났는데 판매완료가 되지 않음
