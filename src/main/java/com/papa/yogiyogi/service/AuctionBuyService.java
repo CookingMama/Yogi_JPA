@@ -45,6 +45,8 @@ public class AuctionBuyService {
         List<ViewAuctionBuyListResponse> viewAuctionBuyListResponses = new ArrayList<>();
         Page<AuctionBuyDTO> all = auctionBuyRepository.findAllByOrderByIdDesc(pageable);
         for (AuctionBuyDTO one: all) {
+            Optional<AuctionBuy> auctionBuy = auctionBuyRepository.findById(one.getId());
+            one.setCommentCount(auctionCommentRepository.findCountByAuctionId(auctionBuy.get()));
             viewAuctionBuyListResponses.add(new ViewAuctionBuyListResponse(
                     one.getId(),
                     one.getTitle(),

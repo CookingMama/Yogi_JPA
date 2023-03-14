@@ -19,7 +19,7 @@ public interface AuctionBuyRepository extends JpaRepository<AuctionBuy, Long> {
     @Transactional
     @Modifying
     @Query("UPDATE AuctionBuy ab SET ab.auctionStatus = :auctionStatus, ab.sellerId = :sellerId WHERE ab.id = :id")
-    int updateAuctionBuyStatus(EAuctionStatus auctionStatus, Long sellerId, Long id);
+    void updateAuctionBuyStatus(EAuctionStatus auctionStatus, Long sellerId, Long id);
 
     @Query("select ab from AuctionBuy As ab " +
             "inner join ab.buyerId as u on u.id = :id")
