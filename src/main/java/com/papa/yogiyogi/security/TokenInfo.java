@@ -19,7 +19,6 @@ public class TokenInfo {
         String nick_name = (String) claims.get("nickName");
         String birth = (String) claims.get("birth");
         String phone_number = (String) claims.get("phoneNumber");
-
         String email = (String) claims.get("email");
 
         return new TokenInfo(id,nick_name,birth,phone_number,email);
