@@ -79,7 +79,7 @@ public class AuctionBuyService {
         for (AuctionBuy one : all) {
 
             Long longTimeOut = one.getTimeout().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
-            Long longNow = (60000L * 60 * 9 )+ LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+            Long longNow = LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
             System.out.println(longTimeOut);
             System.out.println(longNow);
             System.out.println(one.getTimeout());

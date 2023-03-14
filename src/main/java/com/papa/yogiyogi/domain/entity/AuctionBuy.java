@@ -55,7 +55,7 @@ public class AuctionBuy {
         this.minCondition = dto.getMinCondition();
         this.lowWishPrice = dto.getLowWishPrice();
         this.highWishPrice = dto.getHighWishPrice();
-        this.timeout = Instant.ofEpochMilli(dto.getInputTime() + 32400000).atZone(ZoneId.systemDefault()).toLocalDateTime();
+        this.timeout = Instant.ofEpochMilli(dto.getInputTime()).atZone(ZoneId.systemDefault()).toLocalDateTime();
         this.auctionStatus = dto.getAuctionStatus();
     }
 

@@ -14,5 +14,4 @@ import java.util.Optional;
 
 public interface AuctionCommentRepository extends JpaRepository<AuctionComment,Long> {
     Page<AuctionComment> findAllByOrderByBiddingPriceAsc(Pageable pageable);
-
 }
