@@ -49,6 +49,7 @@ public class AuctionBuyDTO {
         this.auctionStatus = request.getEAuctionStatus();
     }
     public AuctionBuyDTO(AuctionBuy auctionBuy) {
+        this.id = auctionBuy.getId();
         this.title = auctionBuy.getTitle();
         this.content = auctionBuy.getContent();
         this.buyerId = auctionBuy.getBuyerId().getId();
@@ -58,6 +59,7 @@ public class AuctionBuyDTO {
         this.lowWishPrice = auctionBuy.getLowWishPrice();
         this.highWishPrice = auctionBuy.getHighWishPrice();
         this.timeout = auctionBuy.getTimeout();
+        this.auctionStatus = auctionBuy.getAuctionStatus();
     }
 
 }
