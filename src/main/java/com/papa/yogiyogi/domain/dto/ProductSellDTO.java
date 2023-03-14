@@ -1,6 +1,7 @@
 package com.papa.yogiyogi.domain.dto;
 
 import com.papa.yogiyogi.domain.request.InsertProductSellRequest;
+import com.papa.yogiyogi.domain.request.ProductSearchRequest;
 import com.papa.yogiyogi.security.TokenInfo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class InsertProductSellDTO {
+public class ProductSellDTO {
     private Long id;
     private String title;
     private String content;
@@ -24,7 +25,7 @@ public class InsertProductSellDTO {
     private MultipartFile file;
     private String nameFile;
 
-    public InsertProductSellDTO(TokenInfo token, InsertProductSellRequest request) {
+    public ProductSellDTO(TokenInfo token, InsertProductSellRequest request) {
         this.title = request.getTitle();
         this.content = request.getContent();
         this.sellerId = token.getId();

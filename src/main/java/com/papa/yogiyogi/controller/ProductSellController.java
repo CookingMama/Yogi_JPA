@@ -1,11 +1,10 @@
 package com.papa.yogiyogi.controller;
 
 import com.google.firebase.auth.FirebaseAuthException;
-import com.papa.yogiyogi.domain.dto.ECategory;
-import com.papa.yogiyogi.domain.dto.ECondition;
-import com.papa.yogiyogi.domain.dto.InsertProductSellDTO;
+import com.papa.yogiyogi.domain.dto.ProductSellDTO;
 import com.papa.yogiyogi.domain.entity.ProductSell;
 import com.papa.yogiyogi.domain.request.InsertProductSellRequest;
+import com.papa.yogiyogi.domain.request.ProductSearchRequest;
 import com.papa.yogiyogi.domain.response.InsertProductSellResponse;
 import com.papa.yogiyogi.domain.response.ViewDetailProductSellResponse;
 import com.papa.yogiyogi.domain.response.ViewProductSellListResponse;
@@ -16,7 +15,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 
 import java.io.IOException;
@@ -35,7 +33,7 @@ public class ProductSellController {
             ( @ModelAttribute InsertProductSellRequest request)
                 throws IOException, FirebaseAuthException {
         TokenInfo tokenInfo = securityService.parseToken(securityService.getToken());
-        InsertProductSellDTO dto = new InsertProductSellDTO(tokenInfo, request);
+        ProductSellDTO dto = new ProductSellDTO(tokenInfo, request);
         return productSellService.insertProductSell(dto);
 
     }
@@ -56,5 +54,17 @@ public class ProductSellController {
             @PathVariable Long id
     ) {
         return productSellService.updateSold(id);
+    }
+    @DeleteMapping("/{id}")
+    public String deleteById (
+            @PathVariable Long id
+    ) {
+        return productSellService.deleteById(id);
+    }
+
+    @PostMapping("/search")
+    public List<ViewProductSellListResponse> searchByTitle (@RequestBody  ProductSearchRequest request) {
+        System.out.println(request.getTitle());
+        return productSellService.findLikeByTitle(request);
     }
 }

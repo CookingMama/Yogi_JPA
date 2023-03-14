@@ -17,4 +17,9 @@ public interface ProductSellRepository extends JpaRepository<ProductSell, Long> 
     @Query("select p from ProductSell As p " +
             "inner join p.sellerId as u on u.id = :id")
     List<ProductSell> findAllBySellerId(@Param("id") Long sellerId);
+
+    @Query("select p from ProductSell as p " +
+            "where p.title like %:title%")
+    List<ProductSell> findLikeByTitle(@Param("title") String title);
+
 }

@@ -49,6 +49,10 @@ public class AuctionBuyController {
     public ViewDetailAuctionBuyResponse findDetailAuctionBuy (@PathVariable Long id) {
         return auctionBuyService.findDetailAuctionBuy(id);
     }
+    @DeleteMapping("/{id} ")
+    public String deleteCommentById (@PathVariable Long id) {
+        return auctionBuyService.deleteAuctionById(id);
+    }
 
     @PostMapping("/{id}/comment")
     @ResponseStatus(HttpStatus.CREATED)
@@ -78,4 +82,10 @@ public class AuctionBuyController {
 
         return auctionBuyService.updateBuy(id, commentId);
     }
+    @DeleteMapping("/{id}/comment/{commentId}")
+    public String deleteCommentById (@PathVariable Long id, @PathVariable Long commentId) {
+        return auctionCommentService.deleteAuctionCommentById(commentId);
+    }
+
+
 }

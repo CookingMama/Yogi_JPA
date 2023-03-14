@@ -1,8 +1,9 @@
 package com.papa.yogiyogi.service;
 
 import com.google.firebase.auth.FirebaseAuthException;
-import com.papa.yogiyogi.domain.dto.InsertProductSellDTO;
+import com.papa.yogiyogi.domain.dto.ProductSellDTO;
 import com.papa.yogiyogi.domain.entity.ProductSell;
+import com.papa.yogiyogi.domain.request.ProductSearchRequest;
 import com.papa.yogiyogi.domain.response.InsertProductSellResponse;
 import com.papa.yogiyogi.domain.response.ViewDetailProductSellResponse;
 import com.papa.yogiyogi.domain.response.ViewProductSellListResponse;
@@ -28,7 +29,7 @@ public class ProductSellService {
     private final FireBaseService fireBaseService;
     private final UserRepository userRepository;
 
-    public InsertProductSellResponse insertProductSell(InsertProductSellDTO dto) throws IOException, FirebaseAuthException {
+    public InsertProductSellResponse insertProductSell(ProductSellDTO dto) throws IOException, FirebaseAuthException {
         String myImgPath = fireBaseService.uploadFiles(dto.getFile(), dto.getNameFile());
         ProductSell productSell = new ProductSell(dto, myImgPath);
         productSellRepository.save(productSell);
@@ -92,5 +93,32 @@ public class ProductSellService {
             ));
         }
         return viewMyProductSellListResponses;
+    }
+
+    public String deleteById(Long id) {
+        productSellRepository.deleteById(id);
+        return "삭제완료";
+
+    }
+
+    // search
+    public List<ViewProductSellListResponse> findLikeByTitle(ProductSearchRequest request) {
+        System.out.println(request.getTitle() + "services");
+        List <ViewProductSellListResponse> responses = new ArrayList<>();
+        List<ProductSell> all = productSellRepository.findLikeByTitle(request.getTitle());
+        for (ProductSell one: all) {
+            responses.add( new ViewProductSellListResponse(
+                    one.getId(),
+                    one.getTitle(),
+                    one.getUrl(),
+                    one.getSellerId().getNickName(),
+                    one.getCategory(),
+                    one.getPrice(),
+                    one.getBuyerNickName(),
+                    one.getIsSold()
+
+            ));
+        }
+        return responses;
     }
 }

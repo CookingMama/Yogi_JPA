@@ -69,5 +69,10 @@ public class AuctionCommentService {
         return new ViewDetailAuctionCommentResponse(byId.get());
     }
 
+    public String deleteAuctionCommentById (Long id) {
+        userRepository.deleteById(id);
+        return "코멘트 삭제 완료";
+    }
+
 
 }

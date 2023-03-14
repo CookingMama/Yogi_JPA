@@ -112,5 +112,10 @@ public class AuctionBuyService {
         }
         return viewMyAuctionBuyListResponses;
     }
+    // 6. 경매 삭제
+    public String deleteAuctionById(Long id) {
+        auctionBuyRepository.deleteById(id);
+        return "경매 삭제 완료";
+    }
 
 }

@@ -45,6 +45,8 @@ public class UserController {
         String token = securityService.getToken();
         return securityService.parseToken(token);
     }
+    @DeleteMapping("/me")
+
     @GetMapping("/me/selling")
     public List<ViewProductSellListResponse> viewMySellingProduct( ) {
         return productSellService.viewMyProductSell();

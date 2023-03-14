@@ -48,4 +48,10 @@ public class UserService {
 
 
     }
+
+    public String deleteUserById() {
+        Long myId = securityService.parseToken(securityService.getToken()).getId();
+        userRepository.deleteById(myId);
+        return "회원 탈퇴 완료";
+    }
 }
