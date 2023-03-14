@@ -40,7 +40,11 @@ public class UserController {
         userService.signupService(request);
     }
 
-
+    @GetMapping("/me")
+    public TokenInfo me(){
+        String token = securityService.getToken();
+        return securityService.parseToken(token);
+    }
     @GetMapping("/me/selling")
     public List<ViewProductSellListResponse> viewMySellingProduct( ) {
         return productSellService.viewMyProductSell();
