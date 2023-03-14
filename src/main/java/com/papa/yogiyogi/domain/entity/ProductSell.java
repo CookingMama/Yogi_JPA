@@ -21,6 +21,7 @@ public class ProductSell {
 
     private String title;
     private String url; //firebase picture
+    private String content;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seller_id")
     private User sellerId;
@@ -36,6 +37,7 @@ public class ProductSell {
     public ProductSell(ProductSellDTO dto , String myImgPath) {
         this.title = dto.getTitle();
         this.url = myImgPath;
+        this.content = dto.getContent();
         this.sellerId = new User(dto.getSellerId());
         this.category = dto.getCategory();
         this.pCondition = dto.getPCondition();

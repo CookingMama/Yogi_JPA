@@ -22,4 +22,5 @@ public class ViewAuctionBuyListResponse {
     private Integer highWishPrice;
     private LocalDateTime timeout;
     private EAuctionStatus auctionStatus;
+    private Integer commentCount;
 }

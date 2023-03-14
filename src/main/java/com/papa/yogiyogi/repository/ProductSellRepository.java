@@ -22,4 +22,6 @@ public interface ProductSellRepository extends JpaRepository<ProductSell, Long> 
             "where p.title like %:title%")
     List<ProductSell> findLikeByTitle(@Param("title") String title);
 
+
+
 }
