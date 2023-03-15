@@ -3,16 +3,14 @@ package com.papa.yogiyogi.domain.response;
 import com.papa.yogiyogi.domain.dto.EAuctionStatus;
 import com.papa.yogiyogi.domain.dto.ECategory;
 import com.papa.yogiyogi.domain.dto.ECondition;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class ViewAuctionBuyListResponse {
     private Long id;
     private String title;

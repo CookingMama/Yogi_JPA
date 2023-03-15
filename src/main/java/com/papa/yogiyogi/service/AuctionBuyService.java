@@ -46,7 +46,7 @@ public class AuctionBuyService {
         Page<AuctionBuyDTO> all = auctionBuyRepository.findAllByOrderByIdDesc(pageable);
         for (AuctionBuyDTO one: all) {
             Optional<AuctionBuy> auctionBuy = auctionBuyRepository.findById(one.getId());
-            one.setCommentCount(auctionCommentRepository.findCountByAuctionId(auctionBuy.get()));
+            one.setCommentCount(auctionCommentRepository.findCountByAuctionId(auctionBuy.get().getId()));
             viewAuctionBuyListResponses.add(new ViewAuctionBuyListResponse(
                     one.getId(),
                     one.getTitle(),
@@ -64,7 +64,7 @@ public class AuctionBuyService {
     // 3.하나의 경매의 세부정보 확인
     public ViewDetailAuctionBuyResponse findDetailAuctionBuy(Long id) {
         Optional<AuctionBuy> byId = auctionBuyRepository.findById(id);
-        Integer commentCount = auctionCommentRepository.findCountByAuctionId(byId.get());
+        Integer commentCount = auctionCommentRepository.findCountByAuctionId(byId.get().getId());
         return new ViewDetailAuctionBuyResponse(byId.get(), commentCount);
     }
     // 4. 경매가 판매완료시 update 로 수정
@@ -104,7 +104,7 @@ public class AuctionBuyService {
         List<AuctionBuyDTO> all = auctionBuyRepository.findAllByBuyerId(myId);
         for (AuctionBuyDTO one: all) {
             Optional<AuctionBuy> auctionBuy = auctionBuyRepository.findById(one.getId());
-            one.setCommentCount(auctionCommentRepository.findCountByAuctionId(auctionBuy.get()));
+            one.setCommentCount(auctionCommentRepository.findCountByAuctionId(auctionBuy.get().getId()));
             viewMyAuctionBuyListResponses.add(new ViewAuctionBuyListResponse(
                     one.getId(),
                     one.getTitle(),
@@ -116,6 +116,7 @@ public class AuctionBuyService {
                     one.getAuctionStatus(),
                     one.getCommentCount()
             ));
+            System.out.println(viewMyAuctionBuyListResponses + "!!!!!!!!!!!");
             ///for push
         }
         return viewMyAuctionBuyListResponses;
@@ -126,7 +127,6 @@ public class AuctionBuyService {
         return "경매 삭제 완료";
     }
 
-    // ㄱ
 
 
 }

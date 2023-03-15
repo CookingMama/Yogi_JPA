@@ -15,7 +15,7 @@ import java.util.Optional;
 public interface AuctionCommentRepository extends JpaRepository<AuctionComment,Long> {
     Page<AuctionComment> findAllByOrderByBiddingPriceAsc(Pageable pageable);
     
-    @Query("select count(ac.id) as commentCount from AuctionComment As ac where ac.auctionId = :auctionId")
-    Integer findCountByAuctionId(@Param("auctionId") AuctionBuy auctionBuy);
+    @Query("select count(ac.id) as commentCount from AuctionComment As ac where ac.auctionId.id = :auctionId")
+    Integer findCountByAuctionId(@Param("auctionId") Long auctionBuy);
 
 }
