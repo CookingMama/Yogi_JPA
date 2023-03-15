@@ -14,6 +14,7 @@ import com.papa.yogiyogi.service.AuctionBuyService;
 import com.papa.yogiyogi.service.ProductSellService;
 import com.papa.yogiyogi.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 

@@ -15,7 +15,8 @@ public interface ProductSellRepository extends JpaRepository<ProductSell, Long> 
     Page<ProductSell> findAllByOrderByIdDesc(Pageable pageable);
 
     @Query("select p from ProductSell As p " +
-            "inner join p.sellerId as u on u.id = :id")
+            "inner join p.sellerId as u on u.id = :id " +
+            "order by p.id desc")
     List<ProductSell> findAllBySellerId(@Param("id") Long sellerId);
 
     @Query("select p from ProductSell as p " +
