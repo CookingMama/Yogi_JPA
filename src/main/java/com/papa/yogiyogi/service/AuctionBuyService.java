@@ -116,6 +116,7 @@ public class AuctionBuyService {
                     one.getAuctionStatus(),
                     one.getCommentCount()
             ));
+            ///for push
         }
         return viewMyAuctionBuyListResponses;
     }
