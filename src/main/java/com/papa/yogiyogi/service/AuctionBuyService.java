@@ -103,6 +103,8 @@ public class AuctionBuyService {
         Long myId = token.getId();
         List<AuctionBuyDTO> all = auctionBuyRepository.findAllByBuyerId(myId);
         for (AuctionBuyDTO one: all) {
+            Optional<AuctionBuy> auctionBuy = auctionBuyRepository.findById(one.getId());
+            one.setCommentCount(auctionCommentRepository.findCountByAuctionId(auctionBuy.get()));
             viewMyAuctionBuyListResponses.add(new ViewAuctionBuyListResponse(
                     one.getId(),
                     one.getTitle(),
@@ -114,6 +116,7 @@ public class AuctionBuyService {
                     one.getAuctionStatus(),
                     one.getCommentCount()
             ));
+            ///for push
         }
         return viewMyAuctionBuyListResponses;
     }
