@@ -97,7 +97,7 @@ public class AuctionBuyService {
 
     }
     // 5. 나의 경매목록 보기
-    public List<ViewAuctionBuyListResponse> viewMyAuctionBuy() {
+    public List<ViewAuctionBuyListResponse> viewMyAuctionBuy( ) {
         List<ViewAuctionBuyListResponse> viewMyAuctionBuyListResponses = new ArrayList<>();
         TokenInfo token = securityService.parseToken(securityService.getToken());
         Long myId = token.getId();
@@ -122,5 +122,8 @@ public class AuctionBuyService {
         auctionBuyRepository.deleteById(id);
         return "경매 삭제 완료";
     }
+
+    // ㄱ
+
 
 }
