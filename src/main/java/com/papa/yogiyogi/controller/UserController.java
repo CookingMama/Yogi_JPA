@@ -53,7 +53,6 @@ public class UserController {
 
     @GetMapping("/me/buying")
     public List<ViewAuctionBuyListResponse> viewMyBuyingAuction() {
-        System.out.println(auctionBuyService.viewMyAuctionBuy().get(1).getCommentCount() + "=======");
         return auctionBuyService.viewMyAuctionBuy();
     }
 }
